@@ -5,4 +5,4 @@ const testSchema = new mongoose.Schema({
 });
 
 export const TestModel =
-  mongoose.models.tests || mongoose.model('tests', testSchema);
+  mongoose.models?.tests || mongoose.model('tests', testSchema);

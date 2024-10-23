@@ -6,7 +6,7 @@ const DB_NAME = process.env.DB_DATABASE as string;
 
 export const connectDb = async () => {
   try {
-    await mongoose.createConnection(MONGODB_URI, {
+    await mongoose.connect(MONGODB_URI, {
       dbName: DB_NAME,
       minPoolSize: 1,
       maxPoolSize: 50,
