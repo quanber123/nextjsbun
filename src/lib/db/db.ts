@@ -1,20 +1,18 @@
-import { Pool } from 'pg';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
-export const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: Number(process.env.DB_PORT) || 5432,
-});
+const MONGODB_URI = process.env.DB_URL as string;
+const DB_NAME = process.env.DB_DATABASE as string;
 
-export const testConnection = async () => {
+export const connectDb = async () => {
   try {
-    const client = await pool.connect();
-    console.log('Kết nối thành công đến PostgreSQL!');
-    client.release();
+    await mongoose.createConnection(MONGODB_URI, {
+      dbName: DB_NAME,
+      minPoolSize: 1,
+      maxPoolSize: 50,
+    });
+    console.log('mongodb connected!');
   } catch (error) {
-    console.error('Lỗi kết nối đến PostgreSQL:', error);
+    console.log(error);
   }
 };
